@@ -1,6 +1,70 @@
 import { CarouselBook } from "./CarouselBook";
+import { useEffect, useState } from "react";
+import BookModel from "../../../models/BookModel";
+import { SpinnerLoading } from "../../Utils/SpinnerLoading";
+import { Link } from "react-router-dom";
 
 export const Carousel = () => {
+  const [books, setBooks] = useState<BookModel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    console.log("useEffect is executed");
+    const fetchBooks = async () => {
+      const baseUrl: string = "http://localhost:8080/api/books";
+
+      const url: string = `${baseUrl}?page=0&size=9`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseJson = await response.json();
+
+      const responseData = responseJson._embedded.books;
+ 
+      const loadedBooks: BookModel[] = [];
+
+      for (const key in responseData) {
+        loadedBooks.push({
+          id: responseData[key].id,
+          title: responseData[key].title,
+          author: responseData[key].author,
+          description: responseData[key].description,
+          copies: responseData[key].copies,
+          copiesAvailable: responseData[key].copiesAvailable,
+          category: responseData[key].category,
+          img: responseData[key].img,
+        });
+      }
+
+      setBooks(loadedBooks);
+      setIsLoading(false);
+      
+    };
+    fetchBooks().catch((error: any) => {
+      setIsLoading(false);
+      setError(error.message);
+    });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <SpinnerLoading />
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="container m-5">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="container mt-5" style={{ height: 550 }}>
       <div className="homepage-carousel-title">
@@ -16,23 +80,23 @@ export const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-              <CarouselBook />
-              <CarouselBook />
-              <CarouselBook />
+              {books.slice(0, 3).map((book) => (
+                <CarouselBook book={book} key={book.id} />
+              ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-center">
-              <CarouselBook />
-              <CarouselBook />
-              <CarouselBook />
+              {books.slice(3, 6).map((book) => (
+                <CarouselBook book={book} key={book.id} />
+              ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-center">
-              <CarouselBook />
-              <CarouselBook />
-              <CarouselBook />
+              {books.slice(6, 9).map((book) => (
+                <CarouselBook book={book} key={book.id} />
+              ))}
             </div>
           </div>
           <button
@@ -65,24 +129,13 @@ export const Carousel = () => {
       {/* Mobile */}
       <div className="d-lg-none mt-3">
         <div className="row d-flex justify-content-center align-items-center">
-          <div className="text-center">
-            <img
-              src={require("../../Images/BooksImages/new-book-1.jpeg")}
-              width="151"
-              height="233"
-              alt="book"
-            />
-            <h6 className="mt-2">Book</h6>
-            <a className="btn main-color text-white" href="#">
-              Reserve
-            </a>
-          </div>
+          <CarouselBook book={books[1]} key={books[1].id} />
         </div>
       </div>
       <div className="homepage-carousel-title mt-3">
-        <a className="btn btn-outline-secondary btn-lg" href="#">
+        <Link className="btn btn-outline-secondary btn-lg" to="/search">
           View More
-        </a>
+        </Link>
       </div>
     </div>
   );
