@@ -1,33 +1,28 @@
 import React from "react";
 import BookModel from "../../../models/BookModel";
+import { Link } from "react-router-dom";
 export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
+  const defaultImage = require("../../../Images/BooksImages/default-book-cover.jpeg");
+
   return (
     <div className="card mt-3 shadow p-3 mb-5 bg-body rounded">
       <div className="row g-0">
         <div className="col-md-2">
           <div className="d-none d-lg-block">
-            {props.book.img ? (
-              <img src={props.book.img} width="130" height="190" alt="book" />
-            ) : (
-              <img
-                src={require("../../../Images/BooksImages/new-book-2.jpg")}
-                width="120"
-                height="180"
-                alt="book"
-              />
-            )}
+          <img
+              src={props.book.img || defaultImage}
+              width="130"
+              height="190"
+              alt="book"
+            />
           </div>
           <div className="d-lg-none d-flex justify-content-center align-items-center">
-            {props.book.img ? (
-              <img src={props.book.img} width="130" height="190" alt="book" />
-            ) : (
-              <img
-                src={require("../../../Images/BooksImages/new-book-2.jpg")}
-                width="120"
-                height="180"
-                alt="book"
-              />
-            )}
+          <img
+              src={props.book.img || defaultImage}
+              width="130"
+              height="190"
+              alt="book"
+            />
           </div>
         </div>
         <div className="col-md-6">
@@ -38,9 +33,9 @@ export const SearchBook: React.FC<{ book: BookModel }> = (props) => {
           </div>
         </div>
         <div className="col-md-4 d-flex justify-content-center align-items-center">
-          <a className="btn btn-primary text-white" href="#">
+          <Link className="btn btn-primary text-white" to={`/checkout/${props.book.id}`}>
             View Details
-          </a>
+          </Link>
         </div>
       </div>
     </div>
