@@ -1,4 +1,9 @@
+import { useOktaAuth } from "@okta/okta-react";
+import { Link } from "react-router-dom";
+
 export const Info = () => {
+  const { authState } = useOktaAuth();
+
   return (
     <div>
       <div className="d-none d-lg-block">
@@ -14,9 +19,15 @@ export const Info = () => {
                 enchanting tales. Let your imagination soar with every page
                 turned.
               </p>
-              <a className="btn main-color btn-lg text-white" href="#">
-                Sign up
-              </a>
+              {authState?.isAuthenticated ? (
+                <Link className="btn main-color btn-lg text-white" to="/search">
+                  Explore top books
+                </Link>
+              ) : (
+                <Link className="btn main-color btn-lg text-white" to="/login">
+                  Sign up
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -51,9 +62,15 @@ export const Info = () => {
                 Carry a world of stories in your pocket. Our mobile-friendly
                 library is your companion for reading on the go.
               </p>
-              <a className="btn main-color btn-lg text-white" href="#">
-                Sign up
-              </a>
+              {authState?.isAuthenticated ? (
+                <Link className="btn main-color btn-lg text-white" to="/search">
+                  Explore top books
+                </Link>
+              ) : (
+                <Link className="btn main-color btn-lg text-white" to="/login">
+                  Sign up
+                </Link>
+              )}
             </div>
           </div>
           <div className="m-2">

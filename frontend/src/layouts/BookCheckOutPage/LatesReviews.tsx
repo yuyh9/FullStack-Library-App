@@ -15,7 +15,7 @@ export const LatestReviews: React.FC<{reviews: ReviewModel[], bookId: number | u
             <Review review={review} key={review.id} />
           ))}
           <div>
-            <Link type="button" className="btn btn-primary" to="#">
+            <Link type="button" className="btn btn-primary " to="#">
               See all reviews
             </Link>
           </div>

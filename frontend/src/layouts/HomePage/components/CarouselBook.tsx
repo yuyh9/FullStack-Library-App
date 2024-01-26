@@ -1,5 +1,6 @@
 import React from "react";
 import BooKModel from "../../../models/BookModel";
+import { Link } from "react-router-dom";
 
 export const CarouselBook: React.FC<{ book: BooKModel }> = (props) => {
   const defaultImage = require("../../../Images/BooksImages/default-book-cover.jpeg");
@@ -15,9 +16,9 @@ export const CarouselBook: React.FC<{ book: BooKModel }> = (props) => {
         />
         <h6 className="mt-2">{props.book.title}</h6>
         <p>{props.book.author}</p>
-        <a className="btn main-color text-white" href="#">
+        <Link className="btn main-color text-white" to={`checkout/${props.book.id}`}>
           Reserve
-        </a>
+        </Link>
       </div>
     </div>
   );

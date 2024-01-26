@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="main-color">
+    <div className="main-color mt-4">
       <footer
         className="container d-flex flex-wrap 
               justify-content-between align-items-center py-4"

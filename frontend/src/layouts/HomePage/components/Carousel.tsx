@@ -10,7 +10,6 @@ export const Carousel = () => {
   const [error, setError] = useState(null);
   
   useEffect(() => {
-    console.log("useEffect is executed");
     const fetchBooks = async () => {
       const baseUrl: string = "http://localhost:8080/api/books";
 
