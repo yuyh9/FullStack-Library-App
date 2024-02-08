@@ -10,6 +10,11 @@ import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { oktaConfig } from "./lib/oktaConfig";
 import { Security, LoginCallback } from "@okta/okta-react";
 import LoginWidget from "./Auth/LoginWidget";
+import { AllReviewListPage } from "./layouts/BookCheckOutPage/AllReviewListPage";
+import { ShelfPage } from "./layouts/ShelfPage/ShelfPage";
+import { MessagesPage } from "./layouts/MessagesPage/MessagesPage";
+import { ManageLibraryPage } from "./layouts/ManageLibraryPage/ManageLibraryPage";
+import { PaymentPage } from "./layouts/PaymentPage/PaymentPage";
 
 
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -40,6 +45,11 @@ export const App = () => {
             <Route path="/checkout/:bookId" element={<BookCheckoutPage />} />
             <Route path="/login" element={<LoginWidget config={oktaConfig} />} />
             <Route path="/login/callback" element={<LoginCallback />} />
+            <Route path="/reviewlist/:bookId" element={<AllReviewListPage />} />
+            <Route path="/shelf" element={<ShelfPage />} />
+            <Route path="/messages" element={<MessagesPage />} />
+            <Route path="/admin" element={<ManageLibraryPage />} />
+            <Route path="/fees" element={<PaymentPage />} />
           </Routes>
         </div>
         <Footer />

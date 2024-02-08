@@ -11,11 +11,11 @@ export const LatestReviews: React.FC<{reviews: ReviewModel[], bookId: number | u
       <div className="col-sm-10 cool-md-10">
         {props.reviews.length > 0 ? 
         <>
-          {props.reviews.slice(0, 3).map((review) => (
-            <Review review={review} key={review.id} />
+          {props.reviews.slice(0, 3).map((eachReview) => (
+            <Review review={eachReview} key={eachReview.id} />
           ))}
           <div>
-            <Link type="button" className="btn btn-primary " to="#">
+            <Link type="button" className="btn btn-primary " to={`/reviewlist/${props.bookId}`}>
               See all reviews
             </Link>
           </div>

@@ -8,10 +8,11 @@ export const Carousel = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const API_BASE = process.env.REACT_APP_API_BASE;
+
   useEffect(() => {
     const fetchBooks = async () => {
-      const baseUrl: string = "http://localhost:8080/api/books";
+      const baseUrl: string = `${API_BASE}/books`;
 
       const url: string = `${baseUrl}?page=0&size=9`;
 

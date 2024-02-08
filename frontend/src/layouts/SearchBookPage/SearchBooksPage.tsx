@@ -7,7 +7,7 @@ import { SearchBook } from "./components/SearchBook";
 export const SearchBooksPage = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [httpError, setHttpError] = useState(null);
+  const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(4);
   const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
@@ -15,10 +15,11 @@ export const SearchBooksPage = () => {
   const [search, setSearch] = useState("");
   const [searchUrl, setSearchUrl] = useState("");
   const [categorySelection, setCategorySelection] = useState("Book category");
+  const API_BASE = process.env.REACT_APP_API_BASE;
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const baseUrl: string = "http://localhost:8080/api/books";
+      const baseUrl: string = `${API_BASE}/books`;
 
       let url: string = "";
 
@@ -65,7 +66,7 @@ export const SearchBooksPage = () => {
     };
     fetchBooks().catch((error: any) => {
       setIsLoading(false);
-      setHttpError(error.message);
+      setError(error.message);
     });
     window.scrollTo(0, 0);
   }, [currentPage, searchUrl]);
@@ -74,16 +75,16 @@ export const SearchBooksPage = () => {
     return <SpinnerLoading />;
   }
 
-  if (httpError) {
+  if (error) {
     return (
       <div className="container m-5">
-        <p>{httpError}</p>
+        <p>{error}</p>
       </div>
     );
   }
 
   const searchHandleChange = () => {
-    setCurrentPage(1);
+    //setCurrentPage(1);
     if (search === "") {
       setSearchUrl("");
     } else {
@@ -95,7 +96,7 @@ export const SearchBooksPage = () => {
   };
 
   const categoryField = (value: string) => {
-    setCurrentPage(1);
+    //setCurrentPage(1);
     if (
       value.toLowerCase() === "fe" ||
       value.toLowerCase() === "be" ||
