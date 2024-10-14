@@ -7,6 +7,6 @@ The Full Stack Library App is a web application that allows users to manage and 
 ## Technologies Used
 
 - **Frontend**: React.js, TypeScript, Bootstrap
-- **Backend**: Java Spring Boot, Spring Data JPA, Spring Data REST
+- **Backend**: Java Spring Boot 3, Spring Data JPA, Spring Data REST
 - **Database**: MySQL
 - **Authentication**: JWT, OAuth2, OpenID Connect
